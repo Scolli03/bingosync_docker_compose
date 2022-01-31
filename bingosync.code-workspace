@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../usr/local/lib"
+		}
+	],
+	"settings": {
+		"python.pythonPath": "/usr/local/bin/python"
+	}
+}
