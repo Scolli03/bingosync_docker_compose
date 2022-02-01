@@ -20,7 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 IS_PROD = False
 
-from bingosync.secret_settings import SECRET_KEY, ADMINS, SERVER_EMAIL, DB_USER
+#from bingosync.secret_settings import SECRET_KEY, ADMINS, SERVER_EMAIL, DB_USER
+DB_USER='postgres'
+SECRET_KEY='Cpv1Lct_hhLX6r3l-Y3qasrpdoX0HSk9-5IAo1dpNkU'
+ADMINS='root'
+SERVER_EMAIL='niahs007@yahoo.com'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not IS_PROD
