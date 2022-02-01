@@ -20,11 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 IS_PROD = False
 
-#from bingosync.secret_settings import SECRET_KEY, ADMINS, SERVER_EMAIL, DB_USER
-DB_USER='postgres'
-SECRET_KEY='Cpv1Lct_hhLX6r3l-Y3qasrpdoX0HSk9-5IAo1dpNkU'
-ADMINS='root'
-SERVER_EMAIL='niahs007@yahoo.com'
+from bingosync.secret_settings import SECRET_KEY, ADMINS, SERVER_EMAIL, DB_USER
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not IS_PROD
@@ -97,7 +94,7 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_NAME'),
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',
+        'HOST': 'postgres_db',
         'PORT': 5432,}
 }
 
@@ -107,7 +104,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Los_Angeles'
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 
