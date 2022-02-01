@@ -4,7 +4,7 @@
 			"path": "."
 		},
 		{
-			"path": "../usr/local/lib/python3.9"
+			"path": "../usr/local/bin/python"
 		}
 	],
 	"settings": {
