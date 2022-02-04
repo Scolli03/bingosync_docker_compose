@@ -26,6 +26,7 @@ DEFAULT_RETRY_COUNT = 5
 # whether we should clean up the broadcast sockets dictionary as people disconnect
 CLEANUP_SOCKETS_DICT_ON_DISCONNECT = True
 
+
 def load_player_data(socket_key):
     response = requests.get(SOCKET_VERIFICATION_URL + socket_key)
     response_json = response.json()
@@ -33,11 +34,14 @@ def load_player_data(socket_key):
     player_uuid = response_json["player"]
     return room_uuid, player_uuid
 
+
 def post_player_connection(player_uuid):
     ping_with_retry(CONNECTION_URL + player_uuid)
 
+
 def post_player_disconnection(player_uuid):
     ping_with_retry(DISCONNECTION_URL + player_uuid)
+
 
 def ping_with_retry(url, retry_count=DEFAULT_RETRY_COUNT):
     def retry_callback(response):
@@ -52,11 +56,13 @@ def ping_with_retry(url, retry_count=DEFAULT_RETRY_COUNT):
     client = AsyncHTTPClient()
     client.fetch(url, retry_callback)
 
+
 def format_defaultdict(ddict):
     if isinstance(ddict, defaultdict):
         return {key: format_defaultdict(ddict[key]) for key in ddict}
     else:
         return ddict
+
 
 class SocketRouter:
 
@@ -77,7 +83,8 @@ class SocketRouter:
         print()
 
     def send_all(self, message):
-        print("sending message:", repr(message), "to", len(list(self.all_sockets)), "sockets")
+        print("sending message:", repr(message), "to",
+              len(list(self.all_sockets)), "sockets")
         for socket in self.all_sockets:
             try:
                 socket.send(message)
@@ -138,7 +145,9 @@ class SocketRouter:
                     break
         self.log_sockets("unregistered")
 
+
 ROUTER = SocketRouter()
+
 
 class MainHandler(tornado.web.RequestHandler):
 
@@ -154,7 +163,8 @@ class MainHandler(tornado.web.RequestHandler):
 class ConnectedHandler(tornado.web.RequestHandler):
 
     def get(self):
-        data = {room: list(players.keys()) for room, players in ROUTER.sockets_by_room.items()}
+        data = {room: list(players.keys())
+                for room, players in ROUTER.sockets_by_room.items()}
         self.write(json.dumps(data))
 
 
@@ -186,10 +196,12 @@ class BroadcastWebSocket(tornado.websocket.WebSocketHandler):
             room_uuid, player_uuid = load_player_data(socket_key)
             ROUTER.register(room_uuid, player_uuid, self)
         except:
-            self.send('{"type": "error", "error": "unable to authenticate, try refreshing"}')
+            self.send(
+                '{"type": "error", "error": "unable to authenticate, try refreshing"}')
 
     def on_close(self):
         ROUTER.unregister(self)
+
 
 application = tornado.web.Application([
     (r"/", MainHandler),
@@ -199,9 +211,11 @@ application = tornado.web.Application([
 
 PORT = 8888
 
+
 def periodic_ping():
     ROUTER.ping_all()
     ROUTER.kill_dead_sockets()
+
 
 if __name__ == "__main__":
     print("Starting application!")

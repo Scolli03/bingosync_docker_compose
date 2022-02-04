@@ -13,7 +13,9 @@
             "args": [
                 "runserver"
             ],
-            "django": true
+            "django": true,
+            "preLaunchTask": "start websocket"
+           
         }
     ]
 }

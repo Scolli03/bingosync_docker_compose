@@ -43,7 +43,7 @@
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	//"forwardPorts": [5432],
+	"forwardPorts": [5342],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "pip install --user -r requirements.txt && python bingosync-app/manage.py migrate",
